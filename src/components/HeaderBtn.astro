@@ -1,0 +1,38 @@
+---
+//Este es el lugar donde se escribe el Js o Ts dentro del proyecto de ASTRO
+interface Props {
+	href: string;
+}
+
+const { href } = Astro.props;
+--- 
+
+<a href={href}>
+    <slot />
+</a>
+
+<style>
+    a{
+        color: white;
+        cursor: pointer;
+        display: grid;
+        text-align: center;
+        align-items: center;
+        background:rgba(255, 255, 255, .27);
+        font-size:15px;
+        text-transform:uppercase;
+        font-weight:700;
+        width: 20%;
+        height:40px;
+        text-decoration: none;
+        outline:none;
+        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        transition: all .18s ease-in-out;
+        border-radius: 4px;
+    }
+    a:hover{
+        text-shadow:
+            0 0 30px rgba(255,255,255, 1),
+            0 0 40px rgba(255, 255, 255, .8);
+    }
+</style>

@@ -1,0 +1,26 @@
+---
+//Este es el lugar donde se escribe el Js o Ts dentro del proyecto de ASTRO
+import Layout from '../layouts/Layout.astro';
+import Launches from '../components/Launches.astro';
+---
+
+<Layout title="Welcome to Astro.">
+	<Launches />
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1rem;
+		
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		color: white;
+		font-size: 20px;
+		line-height: 1.6;
+		display: flex;
+    	justify-content: center;
+		align-items: center;
+	}
+
+</style>

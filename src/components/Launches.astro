@@ -1,0 +1,28 @@
+---
+const res = await fetch('https://api.spacexdata.com/v5/launches/query',{
+    method: 'POST',
+    headers:{
+        'Content-Type': 'application/json'
+    },
+    redirect: 'follow'
+})
+const data = await res.json()
+
+console.log(data)
+---
+
+<div class="mainConteiner">
+    <article class="article-Astro">
+        <h2>el nombre es:</h2>
+        <img src="" alt="">
+    </article>
+</div>
+
+<style>
+    .mainConteiner{
+
+    }
+    .article-Astro{
+
+    }
+</style>
