@@ -1,0 +1,113 @@
+---
+interface Props{
+    id: string
+    name: string
+    img: string
+    detail: string | null
+    success: boolean | null
+    flightNumber: number
+}
+
+const { id, name, img, detail, success, flightNumber} = Astro.props
+const isSuccess = success ? 'Exito' : 'Fallo'
+---
+
+<a href=`/detail-launch/${id}`>
+    <p class="flight_Number">N° DE VUELO: {flightNumber}</p>
+    <picture class="img">
+        <img class="imgLaunch" src={img} alt={name}>
+    </picture>
+    <div class="infoLaunch">
+        <h2 class="idLaunch">ID:#{id}</h2>
+        <label>Detalle.</label>
+        <p class="detailLaunch">{detail}</p>
+        {success ? (<p class="success isSuccess">Tuvo Exito</p>):(<p class="success isFail">Fracaso</p>)}
+    </div>
+</a>
+
+<style>
+    a{  
+        align-content: center;
+        justify-content: center;
+        text-align: center;
+        min-width: 300px;
+        border-radius: 25px;
+        background: #353434a1;
+        text-decoration: none;
+        padding: 8px;
+        transition: transform .3s;
+    }
+    a:hover{
+        transform: scale(1.02);
+    }
+    .flight_Number{
+        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        font-weight: bold;
+        margin: 0;
+        margin-top: 8px;
+        margin-bottom: 20px;
+        color: white;
+        text-align: start;
+        padding-left: 20px;
+    }
+    picture{
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+    picture img{
+        justify-content: center;
+        padding: 4px;
+    }
+    .imgLaunch{
+        width: 150px;
+        height: 150px;
+    }
+    .infoLaunch{
+        h2{
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            font-size: 16px;
+            margin-left: 15px;
+            margin-top: 0;
+            text-align: start;
+            color: white;
+        }
+        label{
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            font-size: 15px;
+            text-align: start;
+            color: wheat;
+            margin-right:20pc;
+        }
+        .detailLaunch{
+            margin: 0px 10px;
+            min-height: 45px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-height: 1.4;
+            text-align: justify;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .success{
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            font-weight: bold;
+            margin: 0 40px;
+            text-align: start;
+            width: 100px;
+            text-align: center;
+            border-radius: 3px;
+            color: white;
+        }
+        .isSuccess{
+            background: green;
+        }
+        .isFail{
+            background: red;
+        }
+    }
+    
+</style>

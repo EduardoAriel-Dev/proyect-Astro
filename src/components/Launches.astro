@@ -1,28 +1,35 @@
 ---
-const res = await fetch('https://api.spacexdata.com/v5/launches/query',{
-    method: 'POST',
-    headers:{
-        'Content-Type': 'application/json'
-    },
-    redirect: 'follow'
-})
+import CardLaunch from "./CardLaunch.astro"
+
+const url = 'https://api.spacexdata.com/v5/launches/'
+const res = await fetch(url)
 const data = await res.json()
+const launches = data.slice(0,20)
 
-console.log(data)
+console.log(launches)
 ---
-
 <div class="mainConteiner">
-    <article class="article-Astro">
-        <h2>el nombre es:</h2>
-        <img src="" alt="">
-    </article>
+    {launches.map((launch) => 
+     <CardLaunch 
+            id = {launch.id}
+            name = {launch.name}
+            img = {launch.links.patch.small}
+            detail = {launch.details}
+            success = {launch.success}
+            flightNumber = {launch.flight_number}/>
+    )
+    }
 </div>
 
 <style>
     .mainConteiner{
-
-    }
-    .article-Astro{
-
+        margin: 0 30px;
+        padding: 5px;
+        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 3fr;
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
     }
 </style>
