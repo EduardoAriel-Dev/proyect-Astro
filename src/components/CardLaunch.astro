@@ -12,7 +12,7 @@ const { id, name, img, detail, success, flightNumber} = Astro.props
 const isSuccess = success ? 'Exito' : 'Fallo'
 ---
 
-<a href=`/detail-launch/${id}`>
+<a href=`/launch/${id}`>
     <p class="flight_Number">N° DE VUELO: {flightNumber}</p>
     <picture class="img">
         <img class="imgLaunch" src={img} alt={name}>
@@ -21,8 +21,9 @@ const isSuccess = success ? 'Exito' : 'Fallo'
         <h2 class="idLaunch">ID:#{id}</h2>
         <label>Detalle.</label>
         <p class="detailLaunch">{detail}</p>
-        {success ? (<p class="success isSuccess">Tuvo Exito</p>):(<p class="success isFail">Fracaso</p>)}
     </div>
+        {success ? (<span class="success isSuccess">Tuvo Exito</span>)
+                 :(<span class="success isFail">Fracaso</span>)}
 </a>
 
 <style>
@@ -92,22 +93,24 @@ const isSuccess = success ? 'Exito' : 'Fallo'
             color: white;
             margin-bottom: 15px;
         }
-        .success{
-            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-            font-weight: bold;
-            margin: 0 40px;
-            text-align: start;
-            width: 100px;
-            text-align: center;
-            border-radius: 3px;
-            color: white;
-        }
-        .isSuccess{
-            background: green;
-        }
-        .isFail{
-            background: red;
-        }
     }
+    .success{
+        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        font-weight: bold;
+        margin: 0 40px;
+        padding: 3px;
+        align-items: start;
+        justify-content: center;
+        text-align: start;
+        border-radius: 3px;
+        color: white;
+        display: table;
+        }
+    .isSuccess{
+        background: green;
+        }
+    .isFail{
+        background: red;
+        }
     
 </style>

@@ -1,0 +1,115 @@
+---
+//Esto es para realizar una Page dinamica, es decir, que cambie segun lo parametros.
+import type { GetStaticPaths } from "astro";
+import { getLaunchById } from "../../services/getLaunchId"
+import Layout from "../../layouts/Layout.astro";
+import { getLaunches } from "../../services/getLaunches";
+
+const { id } = Astro.params
+
+console.log(id)
+
+let launch = null
+
+if(id){
+    launch = await getLaunchById({id})
+}
+
+export async function getStaticPaths() {
+
+    const launches = await getLaunches()
+    
+    return launches.map(launch => ({
+        params: {id:launch.id}
+    }));
+}
+
+console.log(launch)
+const isSuccsse = launch.success ? 'success': 'failure'
+---
+
+
+<Layout title="Lanzamiento">
+    <div class="conteinLaunch">
+        <article class="detailLaunch">
+            <picture>
+                <img src={launch.links.patch.small} alt={launch.name}>
+            </picture>
+            <br>
+            <div class="info">
+                <h1>Numero de Vuelo #{launch.flight_number}</h1>
+                <label>Detalle:</label>
+                <h2>{launch.details}</h2>
+                {isSuccsse ? (<span class="success isSuccess">Exito</span>) 
+                            :(<span class="success isFailure">Fracaso</span>)}
+                    <div class="Links">
+                        <a href={launch.links.wikipedia}>
+                            <img class="badgeLinks" alt="Static Badge" src="https://img.shields.io/badge/Wikipedia-FFFFFF?style=for-the-badge&logo=wikipedia&logoColor=white&logoSize=auto&labelColor=000000&cacheSeconds=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FRazakSAT"/>
+                        </a>
+                        
+                        <a href={launch.links.webcast}>
+                            <img class="badgeLinks" alt="Static Badge" src="https://img.shields.io/badge/youtube-FFFFFF?style=for-the-badge&logo=youtube&logoColor=white&logoSize=auto&labelColor=FF0000"/>
+                        </a>
+
+                        <a href={launch.links.article}>
+                            <img class="badgeLinks" alt="Static Badge" src="https://img.shields.io/badge/spacex-FFFFFF?style=for-the-badge&logo=spacex&logoColor=white&logoSize=auto&labelColor=000000"/>
+                        </a>
+                    </div>
+            </div>
+        </article>
+    </div>
+</Layout>
+
+<style>
+    .detailLaunch{
+        margin-top: 40px;
+        display: flex;
+        border-radius: 25px;
+        background: #353434a1;
+        padding: 25px;
+        width: 80%;
+        transition: transform .3s;
+    }
+    .detailLaunch:hover{
+        transform: scale(1.02);
+    }
+    .conteinLaunch{
+        display: flex;
+        justify-content: center;
+    }
+    a{
+        text-decoration: none;
+        margin: 10px;
+    }
+    h2{
+        margin: 15px 0px 30px
+    }
+    .info{
+        margin-left: 15px;
+    }
+    .badgeLinks{
+        border-radius: 8px;
+    }
+    .success{
+        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        font-weight: bold;
+        margin: 0 10px;
+        padding: 3px;
+        align-items: start;
+        justify-content: center;
+        text-align: center;
+        border-radius: 3px;
+        color: white;
+        display: table;
+        min-width: 50px;
+    }
+    .isSuccess{
+        background: green;
+    }
+    .isFailure{
+        background: red;
+    }
+    .Links{
+        margin-top: 30px;
+    }
+</style>
