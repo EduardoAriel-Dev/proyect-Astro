@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 }
 
 console.log(launch)
-const isSuccsse = launch.success ? 'success': 'failure'
+const isSuccsse = launch.success ? true: false
 ---
 
 
@@ -35,13 +35,14 @@ const isSuccsse = launch.success ? 'success': 'failure'
             <picture>
                 <img src={launch.links.patch.small} alt={launch.name}>
             </picture>
-            <br>
+            <div class="barra"/>
             <div class="info">
                 <h1>Numero de Vuelo #{launch.flight_number}</h1>
                 <label>Detalle:</label>
                 <h2>{launch.details}</h2>
                 {isSuccsse ? (<span class="success isSuccess">Exito</span>) 
-                            :(<span class="success isFailure">Fracaso</span>)}
+                            :(<span class="success isFailure">Fracaso</span>
+                              <label class="reason">Razón: {launch.failures[0].reason}</label>)}
                     <div class="Links">
                         <a href={launch.links.wikipedia}>
                             <img class="badgeLinks" alt="Static Badge" src="https://img.shields.io/badge/Wikipedia-FFFFFF?style=for-the-badge&logo=wikipedia&logoColor=white&logoSize=auto&labelColor=000000&cacheSeconds=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FRazakSAT"/>
@@ -70,25 +71,45 @@ const isSuccsse = launch.success ? 'success': 'failure'
         width: 80%;
         transition: transform .3s;
     }
+    .barra{
+        margin-left: 10px;
+        width: 2px;
+        height: 100%;
+        background-color: #1e1d1d;
+        box-shadow: 2px 0px 75px 7px rgba(53,52,52,1)
+    }
     .detailLaunch:hover{
-        transform: scale(1.02);
+        transform: scale(1.05);
     }
     .conteinLaunch{
         display: flex;
         justify-content: center;
+    }
+    .info label{
+        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        margin: 0%;
+        font-weight: bold;
+        font-size: medium;
+    }
+    .reason{
+        padding-left: 15px;
     }
     a{
         text-decoration: none;
         margin: 10px;
     }
     h2{
-        margin: 15px 0px 30px
+        margin: 0px 0px 20px
     }
     .info{
         margin-left: 15px;
     }
     .badgeLinks{
         border-radius: 8px;
+        transition: transform .5s;
+    }
+    .badgeLinks:hover{
+        transform: translateY(-10px);
     }
     .success{
         font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
